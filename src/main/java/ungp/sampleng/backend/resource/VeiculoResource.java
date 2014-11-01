@@ -17,7 +17,6 @@ public class VeiculoResource {
         return s + " echoing...";
     }
 
-
     @GET
     @Produces("application/json")
     public List<Veiculo> findAll() {
@@ -61,7 +60,5 @@ public class VeiculoResource {
         Application.getRepository(VeiculoRepository.class).save(veiculo);
 
     }
-
-
 }
 

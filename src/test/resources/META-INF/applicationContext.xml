@@ -10,13 +10,20 @@
 
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongo" />
-        <constructor-arg name="databaseName" value="nature" />
+        <constructor-arg name="databaseName" value="sampleng" />
+        <constructor-arg name="userCredentials" ref="mongoCredentials"/>
     </bean>
 
     <!-- Factory bean that creates the Mongo instance -->
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-        <property name="host" value="localhost" />
-        <property name="port" value="27017" />
+        <property name="host" value="ds047440.mongolab.com" />
+        <property name="port" value="47440" />
+    </bean>
+
+    <bean id="mongoCredentials"
+          class="ungp.sampleng.backend.util.SimpleMongoCredentials">
+        <constructor-arg name="username" value="mongo" />
+        <constructor-arg name="password" value="mongo" />
     </bean>
 
     <mongo:repositories base-package="ungp.sampleng.backend.repository" />
