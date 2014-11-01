@@ -6,11 +6,17 @@ import ungp.sampleng.backend.util.Application;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("veiculo")
 public class VeiculoResource {
+
+    @GET
+    @Path("echo/{s}")
+    public String echo(@PathParam("s") String s) {
+        return s + " echoing...";
+    }
+
 
     @GET
     @Produces("application/json")

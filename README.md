@@ -28,3 +28,8 @@ __ungp.sampleng.backend.util__ estão os utilitarios
  
  O deploy é realizado no heroku na conta UNGPublic  
 
+__Passos realizados no Heroku__  
+1) Definir SSL keys: ssh-keygen -t rsa heroku login heroku keys:add    
+2) Criar a aplicacão: heroku create   
+3) Enviar o projeto: git push heroku master  
+4) Escalar um servidor: heroku ps:scale web=1  

@@ -2,9 +2,7 @@ package ungp.sampleng.backend.util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Repository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
-import ungp.sampleng.backend.resource.VeiculoResource;
 
 public class Application {
 
