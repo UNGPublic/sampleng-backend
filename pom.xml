@@ -3,12 +3,6 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>br.com.softplan.sider</groupId>
-        <artifactId>ungp-pom</artifactId>
-        <version>01.00.00-00</version>
-    </parent>
-
     <groupId>br.com.softplan.ungp</groupId>
     <artifactId>sample-ng-backend</artifactId>
     <packaging>war</packaging>
