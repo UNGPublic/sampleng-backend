@@ -36,6 +36,9 @@ __Passos realizados no Heroku__
 3) Enviar o projeto: git push heroku master  
 4) Escalar um servidor: heroku ps:scale web=1  
 
+Atualmente disponivel em https://damp-temple-8851.herokuapp.com/   
+
+
 __Jetty local__  
 Da para rodar um Jetty local rodando o comando abaixo na raiz do projeto:  
 java $JAVA_OPTS -jar server/jetty-runner.jar --port 8080 target/*.war
