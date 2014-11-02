@@ -33,7 +33,7 @@ public class ProprietarioResource {
     @PUT
     @Consumes("application/json")
     public void update(Proprietario proprietario) {
-        Application.getVeiculoRepository().save(proprietario);
+        Application.getProprietarioRepository().save(proprietario);
 
     }
 
