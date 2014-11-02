@@ -1,6 +1,7 @@
 package ungp.sampleng.backend.resource;
 
 import ungp.sampleng.backend.entity.Veiculo;
+import ungp.sampleng.backend.exception.SampleNgException;
 import ungp.sampleng.backend.repository.VeiculoRepository;
 import ungp.sampleng.backend.util.Application;
 
@@ -10,12 +11,6 @@ import java.util.List;
 
 @Path("veiculo")
 public class VeiculoResource {
-
-    @GET
-    @Path("echo/{s}")
-    public String echo(@PathParam("s") String s) {
-        return s + " echoing...";
-    }
 
     @GET
     @Produces("application/json")
@@ -57,7 +52,14 @@ public class VeiculoResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void insert(Veiculo veiculo) {
-        Application.getRepository(VeiculoRepository.class).save(veiculo);
+        if( veiculo.getProprietario() == null ) {
+            throw new SampleNgException("Não é possível cadastrar um veículo sem proprietário.");
+        }
+
+        //FIXME  avaliar questão realacionadas com a existência do proprietario nesse momento
+        Application.getProprietarioRepository().save(veiculo.getProprietario());
+
+        Application.getVeiculoRepository().save(veiculo);
 
     }
 }

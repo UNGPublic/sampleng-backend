@@ -2,6 +2,7 @@ package ungp.sampleng.backend.util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ungp.sampleng.backend.repository.ProprietarioRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
 
 public class Application {
@@ -23,5 +24,9 @@ public class Application {
 
     public static VeiculoRepository getVeiculoRepository() {
         return getRepository(VeiculoRepository.class);
+    }
+
+    public static ProprietarioRepository getProprietarioRepository() {
+        return getRepository(ProprietarioRepository.class);
     }
 }

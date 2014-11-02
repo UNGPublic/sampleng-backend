@@ -6,10 +6,6 @@ Sample Angular Backen
 Trata-se de um projeto maven.  
 Clone o repositório e importe o mesmo na sua IDE de preferência.  
 
-Pré-requisitos:
-===================
-1) Instalacao do mongodb na sua porta padrão  
-
 Detalhes do projeto:
 ===================
 
@@ -19,6 +15,9 @@ __ungp.sampleng.backend.exception__ estao as excecoes e mapeadores de excecao pa
 __ungp.sampleng.backend.reposioty__ estão os repositórios (Spring) para acesso o mongo db  
 __ungp.sampleng.backend.resource__ estão os endpoints REST  
 __ungp.sampleng.backend.util__ estão os utilitarios  
+
+## Banco de dados ##  
+Usa uma instância de demonstracao do Mongodb provida pela mongolabs.  
 
 ## Testes ## 
  

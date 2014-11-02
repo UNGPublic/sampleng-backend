@@ -1,5 +1,6 @@
 package ungp.sampleng.test.veiculo;
 
+import ungp.sampleng.backend.entity.Proprietario;
 import ungp.sampleng.backend.entity.Veiculo;
 import ungp.sampleng.test.Condition;
 import org.junit.runner.Description;
@@ -14,7 +15,12 @@ public class VeiculoResourceCondition extends Condition {
         ApplicationContext ctx =
                 new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
-        mongoOperation.insert(createVeiculo());
+
+        Veiculo veiculo = createVeiculo();
+        Proprietario proprietario = veiculo.getProprietario();
+
+        mongoOperation.insert(proprietario);
+        mongoOperation.insert(veiculo);
     }
 
     @Override
@@ -23,13 +29,19 @@ public class VeiculoResourceCondition extends Condition {
                 new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         mongoOperation.dropCollection(Veiculo.class);
+        mongoOperation.dropCollection(Proprietario.class);
     }
 
     public static Veiculo createVeiculo() {
         Veiculo veiculo = new Veiculo();
-        veiculo.setNmProprietario("Natanael Walsh");
         veiculo.setNuPlaca("ABC0123");
         veiculo.setNuRenavam("5451355435453");
+
+        Proprietario proprietario = new Proprietario();
+        proprietario.setNmProprietario("John Java");
+        proprietario.setNuCnh("1234567890");
+        veiculo.setProprietario(proprietario);
+
         return veiculo;
     }
 

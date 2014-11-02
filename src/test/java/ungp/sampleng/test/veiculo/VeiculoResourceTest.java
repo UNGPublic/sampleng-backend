@@ -32,7 +32,7 @@ public class VeiculoResourceTest {
     public void test_findById() {
         Veiculo veiculo = server.getTarget().path("veiculo/ABC0123").request().get(Veiculo.class);
         Assert.assertNotNull(veiculo);
-        Assert.assertEquals("Natanael Walsh", veiculo.getNmProprietario());
+        Assert.assertEquals("John Java", veiculo.getProprietario().getNmProprietario());
     }
 
     @Test @PreCondition(VeiculoResourceCondition.class)
@@ -40,7 +40,7 @@ public class VeiculoResourceTest {
         List<Veiculo> veiculos = server.getTarget().path("veiculo").request(MediaType.APPLICATION_JSON_TYPE).get(new GenericType<List<Veiculo>>() {} );
         Assert.assertNotNull(veiculos);
         Assert.assertFalse(veiculos.isEmpty());
-        Assert.assertEquals("Natanael Walsh", veiculos.get(0).getNmProprietario());
+        Assert.assertEquals("John Java", veiculos.get(0).getProprietario().getNmProprietario());
     }
 
     @Test @PreCondition(VeiculoResourceCondition.class)
@@ -61,7 +61,7 @@ public class VeiculoResourceTest {
     @Test @PreCondition(VeiculoResourceCondition.class)
     public void test_update() {
         Veiculo veiculo = VeiculoResourceCondition.createVeiculo();
-        veiculo.setNmProprietario("Sofia");
+        veiculo.setNuRenavam("987987");
 
         server.getTarget().path("veiculo").request()
                         .put(Entity.entity(veiculo, MediaType.APPLICATION_JSON_TYPE),
@@ -69,7 +69,7 @@ public class VeiculoResourceTest {
 
         veiculo = server.getTarget().path("veiculo/ABC0123").request().get(Veiculo.class);
 
-        Assert.assertEquals("Sofia", veiculo.getNmProprietario());
+        Assert.assertEquals("987987", veiculo.getNuRenavam());
     }
 
     @Test
@@ -82,6 +82,6 @@ public class VeiculoResourceTest {
 
         veiculo = server.getTarget().path("veiculo/ABC0123").request().get(Veiculo.class);
 
-        Assert.assertEquals("Natanael Walsh", veiculo.getNmProprietario());
+        Assert.assertEquals("John Java", veiculo.getProprietario().getNmProprietario());
     }
 }
