@@ -9,6 +9,9 @@ Clone o repositório e importe o mesmo na sua IDE de preferência.
 Detalhes do projeto:
 ===================
 
+## Fontes ##  
+Os fontes estão publicados no GitHub com a conta UNGPublic.  
+
 ## Java Packages ##
 __ungp.sampleng.backend.entity__ estao as entidades (POJO) usados no sistema.  
 __ungp.sampleng.backend.exception__ estao as excecoes e mapeadores de excecao para o Jersey  

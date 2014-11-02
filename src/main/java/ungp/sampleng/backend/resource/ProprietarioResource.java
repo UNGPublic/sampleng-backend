@@ -5,9 +5,16 @@ import ungp.sampleng.backend.util.Application;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path("proprietario")
 public class ProprietarioResource {
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Proprietario> findAll() {
+        return Application.getProprietarioRepository().findAll();
+    }
 
     @GET
     @Path("{cnh}")
@@ -20,6 +27,13 @@ public class ProprietarioResource {
     public void insert(Proprietario proprietario) {
 
         Application.getProprietarioRepository().save(proprietario);
+
+    }
+
+    @PUT
+    @Consumes("application/json")
+    public void update(Proprietario proprietario) {
+        Application.getVeiculoRepository().save(proprietario);
 
     }
 
