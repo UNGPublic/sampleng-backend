@@ -10,11 +10,11 @@ public class SimpleMongoCredentials extends UserCredentials {
 
     @Override
     public String getUsername() {
-        return "sampleng";
+        return super.getUsername() == null ? "sampleng" : super.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return "Softplan2015";
+        return super.getPassword() == null ? "Softplan2015" : super.getPassword();
     }
 }

@@ -22,8 +22,12 @@
 
     <bean id="mongoCredentials"
           class="ungp.sampleng.backend.util.SimpleMongoCredentials">
+        <!-- Se não informado, utilizara um usuário e senha padrão.
+             Crie sua instância do Mongo e altere estas configurações.
+             Você pode criar sua instância de mongo online, de graça com limitações de espaço, em mongolab.com.
         <constructor-arg name="username" value="mongo" />
         <constructor-arg name="password" value="mongo" />
+        -->
     </bean>
 
     <mongo:repositories base-package="ungp.sampleng.backend.repository" />
