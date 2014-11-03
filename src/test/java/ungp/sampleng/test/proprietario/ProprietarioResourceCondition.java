@@ -16,7 +16,7 @@ public class ProprietarioResourceCondition extends Condition {
         @Override
         public void prepare(Description description) {
             ApplicationContext ctx =
-                    new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
+                    new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
             MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
             Proprietario proprietario = createProprietario();
@@ -29,7 +29,7 @@ public class ProprietarioResourceCondition extends Condition {
         @Override
         public void done(Description description) {
             ApplicationContext ctx =
-                    new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
+                    new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
             MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
             mongoOperation.dropCollection(Proprietario.class);
             mongoOperation.dropCollection(Veiculo.class);

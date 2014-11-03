@@ -4,6 +4,10 @@ import org.springframework.data.authentication.UserCredentials;
 
 public class SimpleMongoCredentials extends UserCredentials {
 
+    public SimpleMongoCredentials() {
+        super(null, null);
+    }
+
     public SimpleMongoCredentials(String username, String password) {
         super(username, password);
     }

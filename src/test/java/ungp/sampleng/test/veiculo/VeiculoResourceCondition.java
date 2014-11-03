@@ -13,7 +13,7 @@ public class VeiculoResourceCondition extends Condition {
     @Override
     public void prepare(Description description) {
         ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
+                new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
 
         Veiculo veiculo = createVeiculo();
@@ -26,7 +26,7 @@ public class VeiculoResourceCondition extends Condition {
     @Override
     public void done(Description description) {
         ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
+                new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
         MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
         mongoOperation.dropCollection(Veiculo.class);
         mongoOperation.dropCollection(Proprietario.class);

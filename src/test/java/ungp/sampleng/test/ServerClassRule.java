@@ -38,7 +38,7 @@ public class ServerClassRule implements TestRule {
                     throw new RuntimeException(e);
 
                 } finally {
-                    server.stop();
+                    server.shutdown();
                 }
 
             }

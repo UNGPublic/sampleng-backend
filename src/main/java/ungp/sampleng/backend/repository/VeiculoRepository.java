@@ -5,6 +5,4 @@ import ungp.sampleng.backend.entity.Veiculo;
 
 public interface VeiculoRepository extends MongoRepository<Veiculo, String> {
 
-    Veiculo findByNuPlaca(String placa);
-
 }

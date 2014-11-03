@@ -12,7 +12,7 @@ public class Application {
     public static ApplicationContext getApplicationContext() {
         if( applicationContext == null ) {
             applicationContext =
-                    new ClassPathXmlApplicationContext("classpath:/META-INF/applicationContext.xml");
+                    new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
         }
 
         return applicationContext;

@@ -41,7 +41,7 @@ public class VeiculoResource {
     @Path("{placa}")
     @Produces("application/json")
     public Veiculo findById(@PathParam("placa") String placa) {
-        Veiculo veiculo = Application.getRepository(VeiculoRepository.class).findByNuPlaca(placa);
+        Veiculo veiculo = Application.getRepository(VeiculoRepository.class).findOne(placa);
         if( veiculo == null ) {
             throw new NotFoundException("Veículo não encontrado.");
         }
