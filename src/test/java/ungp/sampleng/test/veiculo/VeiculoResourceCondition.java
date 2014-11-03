@@ -1,20 +1,17 @@
 package ungp.sampleng.test.veiculo;
 
+import org.junit.runner.Description;
+import org.springframework.data.mongodb.core.MongoOperations;
 import ungp.sampleng.backend.entity.Proprietario;
 import ungp.sampleng.backend.entity.Veiculo;
+import ungp.sampleng.backend.util.Application;
 import ungp.sampleng.test.Condition;
-import org.junit.runner.Description;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.mongodb.core.MongoOperations;
 
 public class VeiculoResourceCondition extends Condition {
 
     @Override
     public void prepare(Description description) {
-        ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
-        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        MongoOperations mongoOperation = Application.getMongoOperations();
 
         Veiculo veiculo = createVeiculo();
         Proprietario proprietario = veiculo.getProprietario();
@@ -25,9 +22,7 @@ public class VeiculoResourceCondition extends Condition {
 
     @Override
     public void done(Description description) {
-        ApplicationContext ctx =
-                new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
-        MongoOperations mongoOperation = (MongoOperations) ctx.getBean("mongoTemplate");
+        MongoOperations mongoOperation = Application.getMongoOperations();
         mongoOperation.dropCollection(Veiculo.class);
         mongoOperation.dropCollection(Proprietario.class);
     }

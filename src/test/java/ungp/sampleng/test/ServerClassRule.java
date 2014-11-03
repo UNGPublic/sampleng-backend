@@ -6,8 +6,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -39,6 +37,7 @@ public class ServerClassRule implements TestRule {
 
                 } finally {
                     server.shutdown();
+
                 }
 
             }
