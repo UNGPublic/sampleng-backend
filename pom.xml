@@ -87,6 +87,48 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.10</version>
+                <configuration>
+
+                    <!-- Container configuration -->
+                    <container>
+                        <containerId>tomcat8x</containerId>
+                        <type>remote</type>
+                    </container>
+
+                    <!-- Configuration to use with the container -->
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.hostname>127.0.0.1</cargo.hostname>
+                            <cargo.servlet.port>18080</cargo.servlet.port>
+                            <cargo.remote.username>admin</cargo.remote.username>
+                            <cargo.remote.password>admin</cargo.remote.password>
+                        </properties>
+                    </configuration>
+
+                    <!-- Deployer configuration -->
+                    <deployer>
+                        <type>remote</type>
+                    </deployer>
+
+                    <!-- Deployables configuration -->
+                    <deployables>
+                        <deployable>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>/sampleng</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>

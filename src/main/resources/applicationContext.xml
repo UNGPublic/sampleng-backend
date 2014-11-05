@@ -11,24 +11,27 @@
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg name="mongo" ref="mongo" />
         <constructor-arg name="databaseName" value="sampleng" />
+        <!-- habilite as credenciais se você desejar apontar para um instancia sua do mongo
         <constructor-arg name="userCredentials" ref="mongoCredentials"/>
+        -->
     </bean>
 
-    <!-- Factory bean that creates the Mongo instance -->
+    <!-- Factory bean que cria a instancia do Mongo. Considera que o deploy sera realizado na VM, por isso a porta 27017. -->
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-        <property name="host" value="ds047440.mongolab.com" />
-        <property name="port" value="47440" />
+        <property name="host" value="127.0.0.1" />
+        <property name="port" value="27017" />
     </bean>
 
+    <!--
     <bean id="mongoCredentials"
           class="ungp.sampleng.backend.util.SimpleMongoCredentials">
-        <!-- Se não informado, utilizara um usuário e senha padrão.
+         Se não informado, utilizara um usuário e senha padrão.
              Crie sua instância do Mongo e altere estas configurações.
              Você pode criar sua instância de mongo online, de graça com limitações de espaço, em mongolab.com.
         <constructor-arg name="username" value="mongo" />
         <constructor-arg name="password" value="mongo" />
-        -->
     </bean>
+    -->
 
     <mongo:repositories base-package="ungp.sampleng.backend.repository" />
 
