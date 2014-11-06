@@ -10,9 +10,9 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
  - IDE com suporte a maven
   
 ## Instruções  
-- Ao instalar a VM conforme os pré-requisitos acima você terá disponível um ambiente pronto para realizar o deploy do backend.  
-- Realize o clone (checkout se contribuidor) deste projeto e abra-o na sua IDE de preferência.  
-- Para publicar o projeto para o Tomcat da VM execute o seguinte comando: __mvn cargo:redeploy__  
+- Ao instalar a VM, conforme os pré-requisitos acima, você terá disponível um ambiente pronto para realizar o deploy do aplicativo backend.
+- Realize o clone, ou checkout se contribuidor, deste projeto e importe na IDE de sua preferência.
+- Para publicar o projeto no Tomcat da VM, execute o seguinte comando: __mvn cargo:redeploy__
  
 
 
