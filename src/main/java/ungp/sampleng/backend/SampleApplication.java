@@ -6,11 +6,11 @@ import ungp.sampleng.backend.resource.VeiculoResource;
 
 import javax.ws.rs.ApplicationPath;
 
-@ApplicationPath("/")
+@ApplicationPath("/*")
 public class SampleApplication extends ResourceConfig {
 
     public SampleApplication() {
-        System.out.println("Iniciando ApplicationPath /sampleng...");
+        System.out.println("Iniciando ApplicationPath...");
         super.packages(true, "ungp.sampleng.backend.resource", "ungp.sampleng.backend.exception");
     }
 

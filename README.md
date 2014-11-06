@@ -12,7 +12,7 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
 ## Instruções  
 - Ao instalar a VM, conforme os pré-requisitos acima, você terá disponível um ambiente pronto para realizar o deploy do aplicativo backend.
 - Realize o clone, ou checkout se contribuidor, deste projeto e importe na IDE de sua preferência.
-- Para publicar o projeto no Tomcat da VM, execute o seguinte comando: __mvn cargo:redeploy__
+- Para publicar o projeto no Tomcat da VM, execute o seguinte comando: __mvn clean install cargo:redeploy__
 - Acesse o aplicativo no broser usando _http://localhost:18080/samplers_  
  
 
