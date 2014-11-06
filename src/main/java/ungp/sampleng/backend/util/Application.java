@@ -3,6 +3,7 @@ package ungp.sampleng.backend.util;
 import com.mongodb.Mongo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.data.mongodb.core.MongoFactoryBean;
 import org.springframework.data.mongodb.core.MongoOperations;
 import ungp.sampleng.backend.repository.ProprietarioRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
@@ -16,7 +17,6 @@ public class Application {
             applicationContext =
                     new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
         }
-
         return applicationContext;
     }
 
@@ -33,12 +33,9 @@ public class Application {
     }
 
     public static MongoOperations getMongoOperations() {
+
         return (MongoOperations) getApplicationContext().getBean("mongoTemplate");
 
     }
 
-    public static Mongo getMongo() {
-        return (Mongo) getApplicationContext().getBean("mongo");
-
-    }
 }
