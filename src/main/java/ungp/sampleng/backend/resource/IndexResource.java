@@ -11,7 +11,7 @@ public class IndexResource {
     @GET
     @Produces("text/html")
     public String index() {
-        return "<A href='/samplers/application.wadl'>WSLD</a><br/>" +
+        return "<A href='/sample/res/application.wadl'>WSLD</a><br/>" +
                 "JSON exemplo: {\"nuPlaca\":\"ABC0102\", \"nuRenavam\": \"9854621222\", \"proprietario\":{\"nmProprietario\": \"John Java\", \"nuCnh\":\"0123456789\"}}";
     }
 

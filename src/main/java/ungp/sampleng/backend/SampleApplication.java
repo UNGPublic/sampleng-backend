@@ -6,7 +6,7 @@ import ungp.sampleng.backend.resource.VeiculoResource;
 
 import javax.ws.rs.ApplicationPath;
 
-@ApplicationPath("/*")
+@ApplicationPath("/res/*")
 public class SampleApplication extends ResourceConfig {
 
     public SampleApplication() {

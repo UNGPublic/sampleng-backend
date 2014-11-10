@@ -121,7 +121,7 @@
                             <artifactId>${project.artifactId}</artifactId>
                             <type>war</type>
                             <properties>
-                                <context>/samplers</context>
+                                <context>/sample</context>
                             </properties>
                         </deployable>
                     </deployables>
