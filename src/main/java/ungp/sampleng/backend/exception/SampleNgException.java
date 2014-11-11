@@ -2,7 +2,9 @@ package ungp.sampleng.backend.exception;
 
 public class SampleNgException extends RuntimeException {
 
-    public SampleNgException() {
+	private static final long serialVersionUID = 1L;
+
+	public SampleNgException() {
     }
 
     public SampleNgException(String message) {

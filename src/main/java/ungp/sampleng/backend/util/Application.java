@@ -1,10 +1,10 @@
 package ungp.sampleng.backend.util;
 
-import com.mongodb.Mongo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.mongodb.core.MongoFactoryBean;
 import org.springframework.data.mongodb.core.MongoOperations;
+
+import ungp.sampleng.backend.repository.InfracaoRepository;
 import ungp.sampleng.backend.repository.ProprietarioRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
 
@@ -30,6 +30,10 @@ public class Application {
 
     public static ProprietarioRepository getProprietarioRepository() {
         return getRepository(ProprietarioRepository.class);
+    }
+    
+    public static InfracaoRepository getInfracaoRepository() {
+        return getRepository(InfracaoRepository.class);
     }
 
     public static MongoOperations getMongoOperations() {

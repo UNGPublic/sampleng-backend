@@ -1,37 +1,15 @@
 package ungp.sampleng.backend.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.io.Serializable;
 import java.util.List;
 
-@Document(collection = "proprietarios")
-public class Proprietario implements Serializable {
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-    @Id
-    private String nuCnh;
-    private String nmProprietario;
+public class Proprietario extends Condutor {
+
+	private static final long serialVersionUID = 1L;
 
     @DBRef
     private List<Veiculo> veiculos;
-
-    public String getNuCnh() {
-        return nuCnh;
-    }
-
-    public void setNuCnh(String nuCnh) {
-        this.nuCnh = nuCnh;
-    }
-
-    public String getNmProprietario() {
-        return nmProprietario;
-    }
-
-    public void setNmProprietario(String nmProprietario) {
-        this.nmProprietario = nmProprietario;
-    }
 
     public List<Veiculo> getVeiculos() {
         return veiculos;
@@ -40,4 +18,5 @@ public class Proprietario implements Serializable {
     public void setVeiculos(List<Veiculo> veiculos) {
         this.veiculos = veiculos;
     }
+    
 }

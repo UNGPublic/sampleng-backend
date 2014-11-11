@@ -9,27 +9,29 @@ import java.io.Serializable;
 @Document(collection = "veiculos")
 public class Veiculo implements Serializable {
 
-    @Id
-    private String nuPlaca;
-    private String nuRenavam;
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+    private String placa;
+    private String renavam;
 
     @DBRef
     private Proprietario proprietario;
 
-    public String getNuRenavam() {
-        return nuRenavam;
+    public String getPlaca() {
+        return placa;
     }
 
-    public void setNuRenavam(String nuRenavam) {
-        this.nuRenavam = nuRenavam;
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
-    public String getNuPlaca() {
-        return nuPlaca;
+    public String getRenavam() {
+        return renavam;
     }
 
-    public void setNuPlaca(String nuPlaca) {
-        this.nuPlaca = nuPlaca;
+    public void setRenavam(String renavam) {
+        this.renavam = renavam;
     }
 
     public Proprietario getProprietario() {

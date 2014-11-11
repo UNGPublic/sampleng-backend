@@ -19,7 +19,7 @@
 
     <!-- Factory bean que cria a instancia do Mongo. Considera testes locais, por isso a porta 37017 (port forwarding da VM). -->
     <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-        <property name="host" value="127.0.0.1" />
+        <property name="host" value="localhost" />
         <property name="port" value="27017" />
     </bean>
 
