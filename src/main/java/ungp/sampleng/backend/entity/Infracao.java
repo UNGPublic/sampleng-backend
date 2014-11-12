@@ -46,7 +46,7 @@ public class Infracao implements Serializable{
 	}
 	
 	public boolean isCondutorProprietario() {
-		return getCondutor() instanceof Proprietario;
+		return getCondutor().isProprietario();
 	}
 
 	public String getId() {

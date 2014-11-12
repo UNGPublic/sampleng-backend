@@ -25,9 +25,9 @@ public class InfracaoResourceCondition extends VeiculoResourceCondition {
 
 		Logradouro logradouro = new Logradouro();
 		logradouro.setId("1");
-		logradouro.setNmLogradouro("Rua das Acacias");
-		logradouro.setNuCep("88030000");
-		logradouro.setNuLogradouro(15422);
+		logradouro.setLogradouro("Rua das Acacias");
+		logradouro.setCep("88030000");
+		logradouro.setTp_logradouro("Rua");
 
 		Infracao infracao1 = createInfracao("1", veiculo, logradouro);
 		Infracao infracao2 = createInfracao("2", veiculo, logradouro);

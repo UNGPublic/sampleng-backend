@@ -1,11 +1,10 @@
 package ungp.sampleng.backend;
 
-import org.glassfish.jersey.server.ResourceConfig;
-import ungp.sampleng.backend.filter.CORSResponseFilter;
-import ungp.sampleng.backend.repository.ProprietarioRepository;
-import ungp.sampleng.backend.resource.VeiculoResource;
-
 import javax.ws.rs.ApplicationPath;
+
+import org.glassfish.jersey.server.ResourceConfig;
+
+import ungp.sampleng.backend.filter.CORSResponseFilter;
 
 @ApplicationPath("/res/*")
 public class SampleApplication extends ResourceConfig {

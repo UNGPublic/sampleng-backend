@@ -16,7 +16,7 @@ public class Veiculo implements Serializable {
     private String renavam;
 
     @DBRef
-    private Proprietario proprietario;
+    private Condutor proprietario;
 
     public String getPlaca() {
         return placa;
@@ -34,11 +34,11 @@ public class Veiculo implements Serializable {
         this.renavam = renavam;
     }
 
-    public Proprietario getProprietario() {
+    public Condutor getProprietario() {
         return proprietario;
     }
 
-    public void setProprietario(Proprietario proprietario) {
+    public void setProprietario(Condutor proprietario) {
         this.proprietario = proprietario;
     }
 }

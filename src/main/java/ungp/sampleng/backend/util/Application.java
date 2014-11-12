@@ -4,8 +4,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 
+import ungp.sampleng.backend.repository.CondutorRepository;
 import ungp.sampleng.backend.repository.InfracaoRepository;
-import ungp.sampleng.backend.repository.ProprietarioRepository;
+import ungp.sampleng.backend.repository.LogradouroFTDocRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
 
 public class Application {
@@ -28,14 +29,18 @@ public class Application {
         return getRepository(VeiculoRepository.class);
     }
 
-    public static ProprietarioRepository getProprietarioRepository() {
-        return getRepository(ProprietarioRepository.class);
+    public static CondutorRepository getCondutorRepository() {
+        return getRepository(CondutorRepository.class);
     }
     
     public static InfracaoRepository getInfracaoRepository() {
         return getRepository(InfracaoRepository.class);
     }
 
+    public static LogradouroFTDocRepository getLogradouroRepository() {
+        return getRepository(LogradouroFTDocRepository.class);
+    }
+    
     public static MongoOperations getMongoOperations() {
 
         return (MongoOperations) getApplicationContext().getBean("mongoTemplate");

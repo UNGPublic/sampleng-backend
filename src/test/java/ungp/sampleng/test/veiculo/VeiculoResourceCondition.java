@@ -1,11 +1,9 @@
 package ungp.sampleng.test.veiculo;
 
-import java.util.ArrayList;
-
 import org.junit.runner.Description;
 import org.springframework.data.mongodb.core.MongoOperations;
 
-import ungp.sampleng.backend.entity.Proprietario;
+import ungp.sampleng.backend.entity.Condutor;
 import ungp.sampleng.backend.entity.Veiculo;
 import ungp.sampleng.backend.util.Application;
 import ungp.sampleng.test.Condition;
@@ -19,7 +17,7 @@ public class VeiculoResourceCondition extends Condition {
         MongoOperations mongoOperation = Application.getMongoOperations();
 
         Veiculo veiculo = createVeiculo();
-        Proprietario proprietario = veiculo.getProprietario();
+        Condutor proprietario = veiculo.getProprietario();
 
         mongoOperation.insert(proprietario);
         mongoOperation.insert(veiculo);
@@ -31,7 +29,7 @@ public class VeiculoResourceCondition extends Condition {
     public void done(Description description) {
         MongoOperations mongoOperation = Application.getMongoOperations();
         mongoOperation.dropCollection(Veiculo.class);
-        mongoOperation.dropCollection(Proprietario.class);
+        mongoOperation.dropCollection(Condutor.class);
     }
 
     public static Veiculo createVeiculo() {
@@ -39,12 +37,11 @@ public class VeiculoResourceCondition extends Condition {
         veiculo.setPlaca("ABC0123");
         veiculo.setRenavam("5451355435453");
 
-        Proprietario proprietario = new Proprietario();
+        Condutor proprietario = new Condutor();
         proprietario.setCpf("11122233344");
         proprietario.setNome("John Java");
         proprietario.setCnh("1234567890");
-        proprietario.setVeiculos(new ArrayList<Veiculo>());
-        proprietario.getVeiculos().add(veiculo);
+        proprietario.setProprietario(true);
         veiculo.setProprietario(proprietario);
 
         return veiculo;

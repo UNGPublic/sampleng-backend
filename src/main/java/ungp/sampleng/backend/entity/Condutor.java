@@ -14,7 +14,8 @@ public class Condutor implements Serializable {
 	private String cpf;
     private String cnh;
     private String nome;
-
+    private Boolean proprietario; 
+    
     public String getCnh() {
         return cnh;
     }
@@ -37,6 +38,14 @@ public class Condutor implements Serializable {
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+
+	public Boolean isProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(Boolean proprietario) {
+		this.proprietario = proprietario;
 	}
     
     

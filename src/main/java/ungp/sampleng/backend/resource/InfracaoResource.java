@@ -15,23 +15,13 @@ import ungp.sampleng.backend.util.Application;
 public class InfracaoResource {
 
     @GET
-    @Produces("application/json")
-    public List<Infracao> findAll() {
-        List<Infracao> infracoes = Application.getInfracaoRepository().findAll();
-        if( infracoes.isEmpty() ) {
-            throw new NotFoundException("Nenhuma infração registrada.");
-        }
-        return infracoes;
-    }
-    
-    @GET
     @Path("condutor/{cpf}")
     @Produces("application/json")
     public List<Infracao> findByCondutor(@PathParam("cpf") String cpf) {
     	//FIXME verificar se o CPF do condutor é referente ao do usuário logado ou, 
     	//se condutor está relacionado com outros condutores que possui o cpf informado.
     	
-        List<Infracao> infracoes = Application.getInfracaoRepository().findAll();
+        List<Infracao> infracoes = Application.getInfracaoRepository().findByCondutorCpf(cpf);
         if( infracoes.isEmpty() ) {
             throw new NotFoundException("Nenhuma infração registrada.");
         }
