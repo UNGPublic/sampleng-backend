@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import ungp.sampleng.backend.entity.Logradouro;
+
 @XmlRootElement
 public class PageData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<? extends Serializable> content;
+	private List<Logradouro> content;
 	private Integer number;
 	private Integer numberOfElements;
 	private Long totalElements;
@@ -72,12 +74,12 @@ public class PageData implements Serializable {
 	}
 
 
-	public List<? extends Serializable> getContent() {
+	public List<Logradouro> getContent() {
 		return content;
 	}
 
 
-	public void setContent(List<? extends Serializable> content) {
+	public void setContent(List<Logradouro> content) {
 		this.content = content;
 	}
 

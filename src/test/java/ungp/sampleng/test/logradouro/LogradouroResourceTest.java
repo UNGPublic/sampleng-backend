@@ -25,11 +25,11 @@ public class LogradouroResourceTest {
      * O boot da vm ja vem com os logradouros de SC.
      * TODO: precisa evoluir mais na questão da indexação.
      */
-	@Test @Ignore
+	@Test
 	public void testIndexSearch() {
 		
 		PageData page = ServerClassRule.getTarget().path("logradouro/1/5")
-				.queryParam("q", "Quatro")
+				.queryParam("q", "quatro")
 	            .request()
 	            .get(new GenericType<PageData>() {});
 		
@@ -42,13 +42,13 @@ public class LogradouroResourceTest {
 		
 	}
 	
-	@Test @Ignore
+	@Test
 	public void testIndexSearch_mongoversion() throws UnknownHostException {
 		MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
 		DB db = mongoClient.getDB( "sampleng" );
 		DBCollection coll = db.getCollection("logradouros");
 				
-		BasicDBObject search = new BasicDBObject("$search", "Quatro");
+		BasicDBObject search = new BasicDBObject("$search", "quatro");
 		BasicDBObject textSearch = new BasicDBObject("$text", search);
 		int matchCount = coll.find(textSearch).count();
 		Assert.assertEquals(11, matchCount);		
