@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 
 import ungp.sampleng.backend.repository.CondutorRepository;
 import ungp.sampleng.backend.repository.InfracaoRepository;
-import ungp.sampleng.backend.repository.LogradouroFTDocRepository;
+import ungp.sampleng.backend.repository.LogradouroRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
 
 public class Application {
@@ -37,8 +37,8 @@ public class Application {
         return getRepository(InfracaoRepository.class);
     }
 
-    public static LogradouroFTDocRepository getLogradouroRepository() {
-        return getRepository(LogradouroFTDocRepository.class);
+    public static LogradouroRepository getLogradouroRepository() {
+        return getRepository(LogradouroRepository.class);
     }
     
     public static MongoOperations getMongoOperations() {
