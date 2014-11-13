@@ -67,12 +67,6 @@ public class Logradouro implements Serializable {
 	public void setTp_logradouro(String tp_logradouro) {
 		this.tp_logradouro = tp_logradouro;
 	}
-	@Override
-	public String toString() {
-		return "Logradouro [id=" + id + ", cep=" + cep + ", logradouro="
-				+ logradouro + ", cidade=" + cidade + ", bairro=" + bairro
-				+ ", tp_logradouro=" + tp_logradouro + "]";
-	}
 	public Float getScore() {
 		return score;
 	}

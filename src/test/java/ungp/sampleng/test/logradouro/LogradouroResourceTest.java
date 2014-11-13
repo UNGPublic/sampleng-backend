@@ -1,5 +1,7 @@
 package ungp.sampleng.test.logradouro;
 
+import java.net.UnknownHostException;
+
 import javax.ws.rs.core.GenericType;
 
 import org.junit.Assert;
@@ -9,6 +11,11 @@ import org.junit.Test;
 
 import ungp.sampleng.backend.util.pageable.PageData;
 import ungp.sampleng.test.ServerClassRule;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
 
 public class LogradouroResourceTest {
     @ClassRule
@@ -35,6 +42,16 @@ public class LogradouroResourceTest {
 		
 	}
 	
-	
+	@Test @Ignore
+	public void testIndexSearch_mongoversion() throws UnknownHostException {
+		MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+		DB db = mongoClient.getDB( "sampleng" );
+		DBCollection coll = db.getCollection("logradouros");
+				
+		BasicDBObject search = new BasicDBObject("$search", "Quatro");
+		BasicDBObject textSearch = new BasicDBObject("$text", search);
+		int matchCount = coll.find(textSearch).count();
+		Assert.assertEquals(11, matchCount);		
+	}
 	
 }
