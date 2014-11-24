@@ -87,14 +87,4 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
-    <servlet>
-        <servlet-name>ptSampleServlet</servlet-name>
-        <servlet-class>org.springframework.security.samples.cas.web.ProxyTicketSampleServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>ptSampleServlet</servlet-name>
-        <url-pattern>/secure/ptSample</url-pattern>
-    </servlet-mapping>
-
 </web-app>

@@ -9,7 +9,6 @@
 <% } %>
 
 <p><a href="../">Home</a>
-<p><a href="ptSample">Proxy Ticket Sample page</a></p>
 <p><a href="../j_spring_security_logout">Logout</a>
 </body>
 </html>
