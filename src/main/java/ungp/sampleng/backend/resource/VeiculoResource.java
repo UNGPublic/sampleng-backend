@@ -13,18 +13,28 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import ungp.sampleng.backend.entity.Veiculo;
 import ungp.sampleng.backend.exception.SampleNgException;
+import ungp.sampleng.backend.repository.CondutorRepository;
 import ungp.sampleng.backend.repository.VeiculoRepository;
-import ungp.sampleng.backend.util.Application;
 
 @Path("veiculo")
+@Component
 public class VeiculoResource {
+	
+	@Autowired
+	private VeiculoRepository veiculoRepository;
+	
+	@Autowired
+	private CondutorRepository condutorRepository;
 
     @GET
     @Produces("application/json")
     public List<Veiculo> findAll() {
-        List<Veiculo> veiculos = Application.getVeiculoRepository().findAll();
+        List<Veiculo> veiculos = veiculoRepository.findAll();
         if( veiculos.isEmpty() ) {
             throw new NotFoundException("Nenhum veículo cadastrado.");
         }
@@ -35,14 +45,14 @@ public class VeiculoResource {
     @Path("{placa}")
     @Consumes("application/json")
     public void delete(@PathParam("placa") String placa) {
-        Application.getVeiculoRepository().delete(placa);
+        veiculoRepository.delete(placa);
 
     }
 
     @PUT
     @Consumes("application/json")
     public void update(Veiculo veiculo) {
-        Application.getVeiculoRepository().save(veiculo);
+    	veiculoRepository.save(veiculo);
 
     }
 
@@ -50,7 +60,7 @@ public class VeiculoResource {
     @Path("{placa}")
     @Produces("application/json")
     public Veiculo findById(@PathParam("placa") String placa) {
-        Veiculo veiculo = Application.getRepository(VeiculoRepository.class).findOne(placa);
+        Veiculo veiculo = veiculoRepository.findOne(placa);
         if( veiculo == null ) {
             throw new NotFoundException("Veículo não encontrado.");
         }
@@ -66,9 +76,9 @@ public class VeiculoResource {
         }
 
         //FIXME  avaliar questão realacionadas com a existência do proprietario nesse momento
-        Application.getCondutorRepository().save(veiculo.getProprietario());
+        condutorRepository.save(veiculo.getProprietario());
 
-        Application.getVeiculoRepository().save(veiculo);
+        veiculoRepository.save(veiculo);
 
     }
 }

@@ -34,4 +34,5 @@
     <mongo:repositories base-package="ungp.sampleng.backend.repository" />
 
     <context:annotation-config />
+    <context:component-scan base-package="ungp.sampleng" />
 </beans>

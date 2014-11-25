@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.TextCriteria;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import ungp.sampleng.backend.entity.Logradouro;
 
-public interface LogradouroRepository extends Repository<Logradouro, String> {
+public interface LogradouroRepository extends MongoRepository<Logradouro, String> {
 
     List<Logradouro> findAllBy(TextCriteria criteria, Sort sort);
 	

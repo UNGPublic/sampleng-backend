@@ -6,7 +6,6 @@ import javax.ws.rs.core.GenericType;
 
 import org.junit.Assert;
 import org.junit.ClassRule;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ungp.sampleng.backend.util.pageable.PageData;
