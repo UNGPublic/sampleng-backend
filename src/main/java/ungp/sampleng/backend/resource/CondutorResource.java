@@ -2,6 +2,7 @@ package ungp.sampleng.backend.resource;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import ungp.sampleng.backend.entity.Condutor;
 import ungp.sampleng.backend.util.Application;
 
@@ -25,6 +27,8 @@ public class CondutorResource {
 
     @GET
     @Path("{cnh}")
+    @RolesAllowed({"ROLE_MANAGER"})
+    //@PreAuthorize("#hasRole('ROLE_MANAGER')")
     public Condutor findById(@PathParam("cnh") String cnh) {
         return Application.getCondutorRepository().findOne(cnh);
     }
@@ -32,7 +36,6 @@ public class CondutorResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void insert(Condutor condutor) {
-
         Application.getCondutorRepository().save(condutor);
 
     }

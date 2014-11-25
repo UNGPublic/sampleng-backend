@@ -17,6 +17,8 @@
         <sec:authentication-provider ref="preAuthAuthProvider"/>
     </sec:authentication-manager>
 
+    <sec:global-method-security pre-post-annotations="enabled"/>
+
     <bean id="preAuthAuthProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
         <property name="preAuthenticatedUserDetailsService">
             <bean id="userDetailsServiceWrapper" class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
@@ -27,10 +29,13 @@
 
     <bean id="fsi" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="securityMetadataSource">
-            <sec:filter-invocation-definition-source>
-                <sec:intercept-url pattern="/" access="ROLE_USER"/>
+            <sec:filter-invocation-definition-source use-expressions="true">
+                <sec:intercept-url pattern="/" access="permitAll"/>
+                <sec:intercept-url pattern="/index.jsp" access="permitAll"/>
+                <sec:intercept-url pattern="/**" access="permitAll" />
+                <sec:intercept-url pattern="/res/**" access="permitAll"/>
             </sec:filter-invocation-definition-source>
         </property>
     </bean>
@@ -57,10 +62,11 @@
         </constructor-arg>
     </bean>
 
-    <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
         <constructor-arg index="0">
             <list>
-                <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+                <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
             </list>
         </constructor-arg>
         <property name="allowIfAllAbstainDecisions" value="false"/>
