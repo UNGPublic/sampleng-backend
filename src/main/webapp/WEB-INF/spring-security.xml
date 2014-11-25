@@ -13,9 +13,12 @@
         </sec:filter-chain-map>
     </bean>
 
+    <!-- Spring Security Authentication Manager -->
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider ref="preAuthAuthProvider"/>
     </sec:authentication-manager>
+
+    <sec:global-method-security jsr250-annotations="enabled" access-decision-manager-ref="accessDecisionManager"/>
 
     <bean id="preAuthAuthProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
         <property name="preAuthenticatedUserDetailsService">
@@ -25,9 +28,28 @@
         </property>
     </bean>
 
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+        <constructor-arg index="0">
+            <list>
+                <bean class="org.springframework.security.access.annotation.Jsr250Voter"/>
+                <bean class="org.springframework.security.access.vote.RoleVoter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">-->
+        <!--<constructor-arg index="0">-->
+            <!--<list>-->
+                <!--<bean class="org.springframework.security.access.vote.RoleVoter"/>-->
+                <!--<bean class="org.springframework.security.access.annotation.Jsr250Voter"/>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+        <!--<property name="allowIfAllAbstainDecisions" value="false"/>-->
+    <!--</bean>-->
+
     <bean id="fsi" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="securityMetadataSource">
             <sec:filter-invocation-definition-source>
                 <sec:intercept-url pattern="/" access="ROLE_USER"/>
@@ -37,6 +59,7 @@
 
     <bean id="sif" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
 
+    <!-- CAS Authentication Users Database -->
     <sec:user-service id="userService">
         <sec:user name="casuser" password="Mellon" authorities="ROLE_SUPERVISOR,ROLE_USER" />
     </sec:user-service>
@@ -57,17 +80,9 @@
         </constructor-arg>
     </bean>
 
-    <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-        <constructor-arg index="0">
-            <list>
-                <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
-            </list>
-        </constructor-arg>
-        <property name="allowIfAllAbstainDecisions" value="false"/>
-    </bean>
-
     <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
 
+    <!-- CAS 2.0 Authentication Filter -->
     <bean id="casAuthenticationFilter" class="org.jasig.cas.client.authentication.AuthenticationFilter">
         <property name="casServerLoginUrl" value="${cas.server.url}/login" />
         <property name="serverName" value="${cas.server}" />
