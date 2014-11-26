@@ -4,26 +4,31 @@
          xmlns:sec="http://www.springframework.org/schema/security"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- Spring Security HTTP Access -->
-    <sec:http entry-point-ref="casEntryPoint" use-expressions="true">
+    <!-- RESTful Resources configuration -->
+    <sec:http pattern="/res/**" entry-point-ref="restEntryPoint" use-expressions="true">
+        <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+
+        <sec:custom-filter ref="casFilter" position="CAS_FILTER" />
+        <sec:custom-filter ref="singleLogoutFilter"  before="CAS_FILTER"/>
+        <sec:custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+    </sec:http>
+
+    <!-- HTTP Root Access configuration -->
+    <sec:http pattern="/**" entry-point-ref="casEntryPoint" use-expressions="true">
         <sec:intercept-url pattern="/" access="permitAll"/>
         <sec:intercept-url pattern="/index.jsp" access="permitAll"/>
         <sec:intercept-url pattern="/casfailed.jsp" access="permitAll"/>
-
-        <sec:intercept-url pattern="/secure/extreme/**"
-                       access="hasRole('ROLE_SUPERVISOR')" />
         <sec:intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')" />
-        <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 
         <sec:custom-filter ref="casFilter" position="CAS_FILTER" />
-        <sec:custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
+        <sec:custom-filter ref="singleLogoutFilter"  before="CAS_FILTER"/>
         <sec:custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
-        <sec:logout logout-success-url="/index.jsp"/>
 
-        <!--<sec:csrf disabled="true"/>-->
+        <sec:logout logout-success-url="/index.jsp"/>
     </sec:http>
+
 
     <!-- Spring Security Authentication Manager -->
     <sec:authentication-manager alias="authManager">
@@ -37,19 +42,20 @@
 
     <sec:global-method-security pre-post-annotations="enabled"/>
 
-    <bean id="casEntryPoint"
-          class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
+    <!-- Spring Security Authentication Entry Points -->
+    <bean id="restEntryPoint" class="ungp.sampleng.backend.security.RESTAuthenticationEntryPoint" />
+
+    <bean id="casEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
           p:serviceProperties-ref="serviceProperties" p:loginUrl="${cas.server.url}/login" />
 
+    <!-- JASIG CAS Authentication Filter -->
     <bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
         <property name="authenticationManager" ref="authManager"/>
     </bean>
 
-    <bean id="serviceProperties"
-            class="org.springframework.security.cas.ServiceProperties"
-            p:service="${cas.service.url}/j_spring_cas_security_check"
-            p:authenticateAllArtifacts="true"
-            p:sendRenew="false"/>
+    <bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
+          p:service="${cas.service.url}/j_spring_cas_security_check" p:authenticateAllArtifacts="true"
+          p:sendRenew="false"/>
 
     <bean id="casAuthProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
             p:serviceProperties-ref="serviceProperties"
