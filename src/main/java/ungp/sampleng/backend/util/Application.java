@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.mongodb.core.MongoOperations;
 
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import ungp.sampleng.backend.repository.CondutorRepository;
 import ungp.sampleng.backend.repository.InfracaoRepository;
 import ungp.sampleng.backend.repository.LogradouroRepository;
@@ -15,8 +16,7 @@ public class Application {
 
     public static ApplicationContext getApplicationContext() {
         if( applicationContext == null ) {
-            applicationContext =
-                    new ClassPathXmlApplicationContext("classpath:/applicationContext.xml");
+            applicationContext = ApplicationContextProvider.getApplicationContext();
         }
         return applicationContext;
     }
