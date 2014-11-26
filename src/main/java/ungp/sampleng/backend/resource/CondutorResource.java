@@ -3,6 +3,7 @@ package ungp.sampleng.backend.resource;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -34,6 +35,8 @@ public class CondutorResource {
 
     @GET
     @Path("{cnh}")
+    @RolesAllowed({"ROLE_MANAGER"})
+    //@PreAuthorize("#hasRole('ROLE_MANAGER')")
     public Condutor findById(@PathParam("cnh") String cnh) {
         return condutorRepository.findOne(cnh);
     }
@@ -41,9 +44,7 @@ public class CondutorResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public void insert(Condutor condutor) {
-
     	condutorRepository.save(condutor);
-
     }
 
     @PUT

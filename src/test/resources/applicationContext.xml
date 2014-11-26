@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/data/mongo
     http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd">
 
-    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg name="mongo" ref="mongo" />
-        <constructor-arg name="databaseName" value="sampleng" />
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="sampleng" />
 
-        <!-- para testes, nao precisamos de credenciais
-        <constructor-arg name="userCredentials" ref="mongoCredentials"/>
-        -->
-    </bean>
+		<!-- para testes, nao precisamos de credenciais <constructor-arg name="userCredentials" 
+			ref="mongoCredentials"/> -->
+	</bean>
 
-    <!-- Factory bean que cria a instancia do Mongo. Considera testes locais, por isso a porta 37017 (port forwarding da VM). -->
-    <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-        <property name="host" value="localhost" />
-        <property name="port" value="27017" />
-    </bean>
+	<!-- Factory bean que cria a instancia do Mongo. Considera testes locais, 
+		por isso a porta 37017 (port forwarding da VM). -->
+	<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+		<property name="host" value="localhost" />
+		<property name="port" value="27017" />
+	</bean>
 
-    <!-- Para testes não precisamos de credenciais
-    <bean id="mongoCredentials"
-          class="ungp.sampleng.backend.util.SimpleMongoCredentials">
-        <constructor-arg name="username" value="mongo" />
-        <constructor-arg name="password" value="mongo" />
-    </bean>
-    -->
+	<!-- Para testes não precisamos de credenciais <bean id="mongoCredentials" 
+		class="ungp.sampleng.backend.util.SimpleMongoCredentials"> <constructor-arg 
+		name="username" value="mongo" /> <constructor-arg name="password" value="mongo" 
+		/> </bean> -->
 
-    <mongo:repositories base-package="ungp.sampleng.backend.repository" />
+	<mongo:repositories base-package="ungp.sampleng.backend.repository" />
 
     <context:annotation-config />
     <context:component-scan base-package="ungp.sampleng" />
