@@ -51,6 +51,8 @@
     <!-- JASIG CAS Authentication Filter -->
     <bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
         <property name="authenticationManager" ref="authManager"/>
+        <!--<property name="proxyGrantingTicketStorage" ref="pgtStorage"/>-->
+        <!--<property name="proxyReceptorUrl" value="/j_spring_cas_security_proxyreceptor"/>-->
     </bean>
 
     <bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
@@ -69,14 +71,12 @@
             <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
                 <constructor-arg index="0" value="${cas.server.url}" />
             </bean>
-            <!--
-            <bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
-                p:acceptAnyProxy="true"
-                p:proxyCallbackUrl="${cas.service.url}/j_spring_cas_security_proxyreceptor"
-                p:proxyGrantingTicketStorage-ref="pgtStorage">
-                <constructor-arg value="${cas.server.url}" />
-            </bean>
-            -->
+            <!--<bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"-->
+                <!--p:acceptAnyProxy="true"-->
+                <!--p:proxyCallbackUrl="${cas.service.url}/j_spring_cas_security_proxyreceptor"-->
+                <!--p:proxyGrantingTicketStorage-ref="pgtStorage">-->
+                <!--<constructor-arg value="${cas.server.url}" />-->
+            <!--</bean>-->
         </property>
     </bean>
 
