@@ -1,97 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+         xmlns:p="http://www.springframework.org/schema/p"
          xmlns:sec="http://www.springframework.org/schema/security"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <bean id="springSecurityFilterChain" class="org.springframework.security.web.FilterChainProxy">
-        <sec:filter-chain-map path-type="ant">
-            <sec:filter-chain pattern="/" filters="casValidationFilter, wrappingFilter" />
-            <sec:filter-chain pattern="/j_spring_security_logout" filters="logoutFilter, fsi" />
-            <sec:filter-chain pattern="/**" filters="casAuthenticationFilter, casValidationFilter, wrappingFilter, sif, j2eePreAuthFilter, logoutFilter, fsi"/>
-        </sec:filter-chain-map>
-    </bean>
+    <!-- Spring Security HTTP Access -->
+    <sec:http entry-point-ref="casEntryPoint" use-expressions="true">
+        <sec:intercept-url pattern="/" access="permitAll"/>
+        <sec:intercept-url pattern="/index.jsp" access="permitAll"/>
+        <sec:intercept-url pattern="/casfailed.jsp" access="permitAll"/>
 
-    <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider ref="preAuthAuthProvider"/>
+        <sec:intercept-url pattern="/secure/extreme/**"
+                       access="hasRole('ROLE_SUPERVISOR')" />
+        <sec:intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+
+        <sec:custom-filter ref="casFilter" position="CAS_FILTER" />
+        <sec:custom-filter ref="singleLogoutFilter" before="CAS_FILTER"/>
+        <sec:custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER"/>
+        <sec:logout logout-success-url="/index.jsp"/>
+
+        <!--<sec:csrf disabled="true"/>-->
+    </sec:http>
+
+    <!-- Spring Security Authentication Manager -->
+    <sec:authentication-manager alias="authManager">
+        <sec:authentication-provider ref="casAuthProvider" />
     </sec:authentication-manager>
 
-    <sec:global-method-security pre-post-annotations="enabled"/>
-
-    <bean id="preAuthAuthProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
-        <property name="preAuthenticatedUserDetailsService">
-            <bean id="userDetailsServiceWrapper" class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
-                <property name="userDetailsService" ref="userService"/>
-            </bean>
-        </property>
-    </bean>
-
-    <bean id="fsi" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
-        <property name="securityMetadataSource">
-            <sec:filter-invocation-definition-source use-expressions="true">
-                <sec:intercept-url pattern="/" access="permitAll"/>
-                <sec:intercept-url pattern="/index.jsp" access="permitAll"/>
-                <sec:intercept-url pattern="/**" access="permitAll" />
-                <sec:intercept-url pattern="/res/**" access="permitAll"/>
-            </sec:filter-invocation-definition-source>
-        </property>
-    </bean>
-
-    <bean id="sif" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
-
     <sec:user-service id="userService">
+        <sec:user name="sample" password="sample" authorities="ROLE_SUPERVISOR,ROLE_USER" />
         <sec:user name="casuser" password="Mellon" authorities="ROLE_SUPERVISOR,ROLE_USER" />
     </sec:user-service>
 
-    <bean id="j2eePreAuthFilter" class="org.springframework.security.web.authentication.preauth.j2ee.J2eePreAuthenticatedProcessingFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="authenticationDetailsSource">
-            <bean class="org.springframework.security.web.authentication.WebAuthenticationDetailsSource" />
+    <sec:global-method-security pre-post-annotations="enabled"/>
+
+    <bean id="casEntryPoint"
+          class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
+          p:serviceProperties-ref="serviceProperties" p:loginUrl="${cas.server.url}/login" />
+
+    <bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+        <property name="authenticationManager" ref="authManager"/>
+    </bean>
+
+    <bean id="serviceProperties"
+            class="org.springframework.security.cas.ServiceProperties"
+            p:service="${cas.service.url}/j_spring_cas_security_check"
+            p:authenticateAllArtifacts="true"
+            p:sendRenew="false"/>
+
+    <bean id="casAuthProvider" class="org.springframework.security.cas.authentication.CasAuthenticationProvider"
+            p:serviceProperties-ref="serviceProperties"
+            p:key="casAuthProviderKey">
+        <property name="authenticationUserDetailsService">
+            <bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
+                <constructor-arg ref="userService" />
+            </bean>
+        </property>
+        <property name="ticketValidator">
+            <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
+                <constructor-arg index="0" value="${cas.server.url}" />
+            </bean>
+            <!--
+            <bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"
+                p:acceptAnyProxy="true"
+                p:proxyCallbackUrl="${cas.service.url}/j_spring_cas_security_proxyreceptor"
+                p:proxyGrantingTicketStorage-ref="pgtStorage">
+                <constructor-arg value="${cas.server.url}" />
+            </bean>
+            -->
         </property>
     </bean>
 
-    <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
-        <constructor-arg value="/"/>
-        <constructor-arg>
-            <list>
-                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
-            </list>
-        </constructor-arg>
-    </bean>
-
-    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-        <constructor-arg index="0">
-            <list>
-                <bean class="org.springframework.security.access.vote.RoleVoter"/>
-                <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
-            </list>
-        </constructor-arg>
-        <property name="allowIfAllAbstainDecisions" value="false"/>
-    </bean>
-
-    <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
-
-    <bean id="casAuthenticationFilter" class="org.jasig.cas.client.authentication.AuthenticationFilter">
+     <bean id="casAuthenticationFilter" class="org.jasig.cas.client.authentication.AuthenticationFilter">
         <property name="casServerLoginUrl" value="${cas.server.url}/login" />
         <property name="serverName" value="${cas.server}" />
     </bean>
 
-    <bean id="casValidationFilter" class="org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter">
-        <property name="serverName" value="${cas.server}" />
-        <property name="exceptionOnValidationFailure" value="true" />
-        <property name="proxyGrantingTicketStorage" ref="proxyGrantingTicketStorage" />
-        <property name="ticketValidator" ref="ticketValidator" />
+    <!--
+        In memory CAS ticket storage
+
+        NOTE: In a real application you should not use an in memory implementation. You will also want
+        to ensure to clean up expired tickets by calling ProxyGrantingTicketStorage.cleanup()
+     -->
+    <bean id="pgtStorage" class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl"/>
+
+    <!-- This filter handles a Single Logout Request from the CAS Server -->
+    <bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>
+
+    <!-- This filter redirects to the CAS Server to signal Single Logout should be performed -->
+    <bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter"
+            p:filterProcessesUrl="/j_spring_cas_security_logout">
+        <constructor-arg value="${cas.server.url}/logout"/>
+        <constructor-arg>
+            <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+        </constructor-arg>
     </bean>
-
-    <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator" id="ticketValidator">
-        <constructor-arg index="0" value="${cas.server.url}" />
-    </bean>
-
-    <bean id="proxyGrantingTicketStorage" class="org.jasig.cas.client.proxy.ProxyGrantingTicketStorageImpl" />
-
-    <bean id="wrappingFilter" class="org.jasig.cas.client.util.HttpServletRequestWrapperFilter" />
 
 </beans>
