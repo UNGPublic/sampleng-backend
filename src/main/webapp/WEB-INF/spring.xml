@@ -16,7 +16,7 @@
     <import resource="spring-security.xml"/>
 
     <!-- Spring MongoDB -->
-    <!--<import resource="spring-nosql.xml"/>-->
+    <import resource="spring-nosql.xml"/>
 
     <!-- Spring Cache -->
     <import resource="spring-cache.xml"/>

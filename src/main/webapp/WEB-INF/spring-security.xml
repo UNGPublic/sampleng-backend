@@ -7,7 +7,7 @@
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- RESTful Resources configuration -->
-    <sec:http pattern="/res/**" entry-point-ref="restEntryPoint" use-expressions="true">
+    <sec:http pattern="/res/**" entry-point-ref="restEntryPoint" use-expressions="true" >
         <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
 
         <sec:custom-filter ref="casFilter" position="CAS_FILTER" />
@@ -20,7 +20,7 @@
         <sec:intercept-url pattern="/" access="permitAll"/>
         <sec:intercept-url pattern="/index.jsp" access="permitAll"/>
         <sec:intercept-url pattern="/casfailed.jsp" access="permitAll"/>
-        <sec:intercept-url pattern="/secure/**" access="hasRole('ROLE_USER')" />
+        <sec:intercept-url pattern="/secure/**" access="isAuthenticated()" />
 
         <sec:custom-filter ref="casFilter" position="CAS_FILTER" />
         <sec:custom-filter ref="singleLogoutFilter"  before="CAS_FILTER"/>
@@ -29,16 +29,10 @@
         <sec:logout logout-success-url="/index.jsp"/>
     </sec:http>
 
-
     <!-- Spring Security Authentication Manager -->
     <sec:authentication-manager alias="authManager">
         <sec:authentication-provider ref="casAuthProvider" />
     </sec:authentication-manager>
-
-    <sec:user-service id="userService">
-        <sec:user name="sample" password="sample" authorities="ROLE_SUPERVISOR,ROLE_USER" />
-        <sec:user name="casuser" password="Mellon" authorities="ROLE_SUPERVISOR,ROLE_USER" />
-    </sec:user-service>
 
     <sec:global-method-security pre-post-annotations="enabled"/>
 
@@ -51,8 +45,6 @@
     <!-- JASIG CAS Authentication Filter -->
     <bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
         <property name="authenticationManager" ref="authManager"/>
-        <!--<property name="proxyGrantingTicketStorage" ref="pgtStorage"/>-->
-        <!--<property name="proxyReceptorUrl" value="/j_spring_cas_security_proxyreceptor"/>-->
     </bean>
 
     <bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
@@ -63,20 +55,18 @@
             p:serviceProperties-ref="serviceProperties"
             p:key="casAuthProviderKey">
         <property name="authenticationUserDetailsService">
-            <bean class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
-                <constructor-arg ref="userService" />
+            <bean class="org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService">
+                <!--<constructor-arg>-->
+                    <!--<array>-->
+                        <!--<value>role</value>-->
+                    <!--</array>-->
+                <!--</constructor-arg>-->
             </bean>
         </property>
         <property name="ticketValidator">
             <bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">
                 <constructor-arg index="0" value="${cas.server.url}" />
             </bean>
-            <!--<bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator"-->
-                <!--p:acceptAnyProxy="true"-->
-                <!--p:proxyCallbackUrl="${cas.service.url}/j_spring_cas_security_proxyreceptor"-->
-                <!--p:proxyGrantingTicketStorage-ref="pgtStorage">-->
-                <!--<constructor-arg value="${cas.server.url}" />-->
-            <!--</bean>-->
         </property>
     </bean>
 
