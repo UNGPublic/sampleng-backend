@@ -19,11 +19,11 @@ public class Logradouro implements Serializable {
 	private String id;
     private String cep;
     
-    @TextIndexed(weight=5F)
+    @TextIndexed
     private String logradouro;
-    @TextIndexed(weight=3F)
+    @TextIndexed
     private String cidade;
-    @TextIndexed(weight=1F)
+    @TextIndexed
     private String bairro;
     
     @TextScore 
