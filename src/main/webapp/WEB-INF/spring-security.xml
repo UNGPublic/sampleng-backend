@@ -56,11 +56,11 @@
             p:key="casAuthProviderKey">
         <property name="authenticationUserDetailsService">
             <bean class="org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService">
-                <!--<constructor-arg>-->
-                    <!--<array>-->
-                        <!--<value>role</value>-->
-                    <!--</array>-->
-                <!--</constructor-arg>-->
+                <constructor-arg>
+                    <array>
+                        <value>role</value>
+                    </array>
+                </constructor-arg>
             </bean>
         </property>
         <property name="ticketValidator">
