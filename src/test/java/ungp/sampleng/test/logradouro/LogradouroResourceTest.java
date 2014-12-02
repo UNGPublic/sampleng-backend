@@ -1,24 +1,18 @@
 package ungp.sampleng.test.logradouro;
 
-import java.net.UnknownHostException;
-import java.util.List;
-
+import com.mongodb.*;
 import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
-
 import ungp.sampleng.backend.entity.Logradouro;
 import ungp.sampleng.backend.util.pageable.PageData;
 import ungp.sampleng.test.ServerClassRule;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
+import java.net.UnknownHostException;
+import java.util.List;
 
 public class LogradouroResourceTest {
+
     @ClassRule
     public static ServerClassRule server = new ServerClassRule();
 
