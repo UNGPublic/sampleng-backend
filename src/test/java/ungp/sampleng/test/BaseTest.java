@@ -1,7 +1,9 @@
 package ungp.sampleng.test;
 
+import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,4 +24,8 @@ public class BaseTest {
         return server.getTarget();
     }
 
+    @Test
+    public void basic() {
+        Assert.assertNotNull(server);
+    }
 }

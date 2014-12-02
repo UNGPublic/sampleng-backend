@@ -13,9 +13,6 @@ import java.util.List;
 
 public class InfracaoResourceTest extends BaseTest {
 
-    @Autowired
-    private InfracaoResource infracaoResource;
-
     @Test @PreCondition(InfracaoResourceCondition.class)
     public void deve_existir_infracao() {
 
