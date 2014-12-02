@@ -3,6 +3,7 @@ package ungp.sampleng.test;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class PreConditionRule implements TestRule {
 

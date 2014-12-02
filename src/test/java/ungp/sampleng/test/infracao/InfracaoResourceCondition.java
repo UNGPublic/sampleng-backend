@@ -4,24 +4,33 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.runner.Description;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
 
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.ContextConfiguration;
 import ungp.sampleng.backend.entity.Infracao;
 import ungp.sampleng.backend.entity.Logradouro;
 import ungp.sampleng.backend.entity.Veiculo;
+import ungp.sampleng.backend.repository.InfracaoRepository;
+import ungp.sampleng.backend.resource.InfracaoResource;
 import ungp.sampleng.backend.util.Application;
+import ungp.sampleng.backend.util.ApplicationContextProvider;
 import ungp.sampleng.test.veiculo.VeiculoResourceCondition;
+
+import javax.inject.Inject;
 
 public class InfracaoResourceCondition extends VeiculoResourceCondition {
 	public static ThreadLocal<List<Infracao>> OBJECT = new ThreadLocal<>();
 
-	@Override
+    @Override
 	public void prepare(Description description) {
 		super.prepare(description);
 
 		Veiculo veiculo = VeiculoResourceCondition.OBJECT.get();
 
-		MongoOperations mongoOperation = Application.getMongoOperations();
+		MongoOperations mongoOperation = (MongoOperations) ApplicationContextProvider.getApplicationContext().getBean("mongoTemplate");
 
 		Logradouro logradouro = new Logradouro();
 		logradouro.setId("1");

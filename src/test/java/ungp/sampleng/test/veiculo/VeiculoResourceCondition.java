@@ -1,20 +1,25 @@
 package ungp.sampleng.test.veiculo;
 
 import org.junit.runner.Description;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 
+import org.springframework.stereotype.Component;
 import ungp.sampleng.backend.entity.Condutor;
 import ungp.sampleng.backend.entity.Veiculo;
+import ungp.sampleng.backend.repository.VeiculoRepository;
 import ungp.sampleng.backend.util.Application;
+import ungp.sampleng.backend.util.ApplicationContextProvider;
 import ungp.sampleng.test.Condition;
 
 public class VeiculoResourceCondition extends Condition {
 
 	public static ThreadLocal<Veiculo> OBJECT = new ThreadLocal<>();
-	
+	@Autowired
+    VeiculoRepository repository;
     @Override
     public void prepare(Description description) {
-        MongoOperations mongoOperation = Application.getMongoOperations();
+        MongoOperations mongoOperation = (MongoOperations) ApplicationContextProvider.getApplicationContext().getBean("mongoTemplate");
 
         Veiculo veiculo = createVeiculo();
         Condutor proprietario = veiculo.getProprietario();
