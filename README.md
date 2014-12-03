@@ -13,8 +13,16 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
 - Ao instalar a VM, conforme os pré-requisitos acima, você terá disponível um ambiente pronto para realizar o deploy do aplicativo backend.
 - Realize o clone, ou checkout se contribuidor, deste projeto e importe na IDE de sua preferência.
 - Para publicar o projeto no Tomcat da VM, execute o seguinte comando: __mvn clean install cargo:redeploy__
-- Acesse __http://localhost:18080/sample/res/__ para obter o WADL e um JSON de exemplo  
- 
+- Acesse __http://localhost:18080/sample/res/__ para obter o WADL e um JSON de exemplo
+
+## Segurança
+- O mecanismo de segurança para o aplicativo backend foi definido utilizando o Jasig CAS http://jasig.github.io/cas/4.0.0/index.html.
+- Para realizar a chamada dos serviços REST é necessário realizar o processo de autenticação (login/senha) no CAS.
+- O usuário padrão para realizar este acesso é "casuser" e a senha padrão é "Mellon".
+- Após realizar o processo de autenticação, os serviços REST poderão ser executados utilizando um aplicação de frontend ou um cliente REST.
+- Existem alguns clientes REST disponível para teste. Abaixo, segue algumas sugestões:
+* REST-Easy add-on para Mozila Firefox https://addons.mozilla.org/en-US/firefox/addon/rest-easy/
+* Postman Google Chrome plugin https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
 
 
 
