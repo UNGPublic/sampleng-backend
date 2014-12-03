@@ -16,13 +16,13 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
 - Acesse __http://localhost:18080/sample/res/__ para obter o WADL e um JSON de exemplo
 
 ## Segurança
-- O mecanismo de segurança para o aplicativo backend foi definido utilizando o Jasig CAS http://jasig.github.io/cas/4.0.0/index.html.
+- O mecanismo de segurança para o aplicativo backend foi definido utilizando o _Jasig CAS_ http://jasig.github.io/cas/4.0.0/index.html.
 - Para realizar a chamada dos serviços REST é necessário realizar o processo de autenticação (login/senha) no CAS.
-- O usuário padrão para realizar este acesso é "casuser" e a senha padrão é "Mellon".
+- O usuário padrão para realizar este acesso é _*"casuser"*_ e a senha padrão é _*"Mellon"*_.
 - Após realizar o processo de autenticação, os serviços REST poderão ser executados utilizando um aplicação de frontend ou um cliente REST.
 - Existem alguns clientes REST disponível para teste.
-* REST-Easy add-on para Mozila Firefox. https://addons.mozilla.org/en-US/firefox/addon/rest-easy/
-* Postman Google Chrome plugin. https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
+- _REST-Easy_ add-on para Mozila Firefox. https://addons.mozilla.org/en-US/firefox/addon/rest-easy/
+- _Postman_ Google Chrome plugin. https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
 
 
 
