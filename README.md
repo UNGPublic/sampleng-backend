@@ -18,7 +18,7 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
 ## Segurança
 - O mecanismo de segurança para o aplicativo backend foi definido utilizando o _Jasig CAS_ http://jasig.github.io/cas/4.0.0/index.html.
 - Para realizar a chamada dos serviços REST é necessário realizar o processo de autenticação (login/senha) no CAS.
-- O usuário padrão para realizar este acesso é _*"casuser"*_ e a senha padrão é _*"Mellon"*_.
+- O usuário padrão para realizar este acesso é *"casuser"* e a senha padrão é *"Mellon"*.
 - Após realizar o processo de autenticação, os serviços REST poderão ser executados utilizando um aplicação de frontend ou um cliente REST.
 - Existem alguns clientes REST disponível para teste.
 - _REST-Easy_ add-on para Mozila Firefox. https://addons.mozilla.org/en-US/firefox/addon/rest-easy/
