@@ -15,14 +15,6 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
 - Para publicar o projeto no Tomcat da VM, execute o seguinte comando: __mvn clean install cargo:redeploy__
 - Acesse __http://localhost:18080/sample/res/__ para obter o WADL e um JSON de exemplo
 
-## Segurança
-- O mecanismo de segurança para o aplicativo backend foi definido utilizando o _Jasig CAS_ http://jasig.github.io/cas/4.0.0/index.html.
-- Para realizar a chamada dos serviços REST é necessário realizar o processo de autenticação (login/senha) no CAS.
-- O usuário padrão para realizar este acesso é *"casuser"* e a senha padrão é *"Mellon"*.
-- Após realizar o processo de autenticação, os serviços REST poderão ser executados utilizando um aplicação de frontend ou um cliente REST.
-- Existem alguns clientes REST disponível para teste.
-- _REST-Easy_ add-on para Mozila Firefox. https://addons.mozilla.org/en-US/firefox/addon/rest-easy/
-- _Postman_ Google Chrome plugin. https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en
 
 
 
