@@ -12,9 +12,6 @@
 
     <bean id="applicationContextProvider" class="ungp.sampleng.backend.util.ApplicationContextProvider" />
 
-    <!-- Spring Security -->
-    <import resource="spring-security.xml"/>
-
     <!-- Spring MongoDB -->
     <import resource="spring-nosql.xml"/>
 
