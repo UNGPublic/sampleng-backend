@@ -42,11 +42,26 @@
     <bean id="casEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint"
           p:serviceProperties-ref="serviceProperties" p:loginUrl="${cas.server.url}/login" />
 
-    <!-- JASIG CAS Authentication Filter -->
+    <!-- JASIG CAS Authentication Filter 
     <bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
         <property name="authenticationManager" ref="authManager"/>
+		<property name="proxyGrantingTicketStorage" ref="pgtStorage"/>
     </bean>
-
+	-->
+	<bean id="casFilter" class="org.springframework.security.cas.web.CasAuthenticationFilter">
+		 <property name="authenticationManager" ref="authManager"/>
+		<property name="authenticationFailureHandler">
+			<bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+				<property name="defaultFailureUrl" value="/casfailed.jsp"/>
+			</bean>
+		</property>
+		<property name="authenticationSuccessHandler">
+			<bean class="ungp.sampleng.backend.security.SampleRequestAuthenticationSuccessHandler">
+				<property name="defaultTargetUrl" value="/"/>
+			</bean>
+		</property>
+	</bean>
+	
     <bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties"
           p:service="${cas.service.url}/j_spring_cas_security_check" p:authenticateAllArtifacts="true"
           p:sendRenew="false"/>
