@@ -7,7 +7,7 @@ Trata-se de um projeto para experimentar tecnologias e auxiliar na definição d
  
 ## Pré-requisitos  
  - Instalação da VM com base nas orientações dispoíveis neste repositório https://github.com/ungppublic/vagrant.  
- - IDE com suporte a maven
+ - IDE com suporte a maven.
   
 ## Instruções  
 - Ao instalar a VM, conforme os pré-requisitos acima, você terá disponível um ambiente pronto para realizar o deploy do aplicativo backend.
