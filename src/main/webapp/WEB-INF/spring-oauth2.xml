@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+            http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <oauth:resource-server id="resourceServerFilter" token-services-ref="tokenServices"/>
+
+    <bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.DefaultTokenServices">
+        <property name="tokenStore" ref="tokenStore"/>
+        <property name="supportRefreshToken" value="true"/>
+        <property name="clientDetailsService" ref="client-details-service"/>
+    </bean>
+
+    <bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore"/>
+
+    <!-- File based client details access
+    This can be replaced with a persistence store implementation if there are more than a handful of clients-->
+    <oauth:client-details-service id="client-details-service">
+        <!-- Web Application clients -->
+        <oauth:client
+                client-id="7b5a38705d7b3562655925406a652e32"
+                secret="655f523128212d6e70634446224c2a48"
+                authorized-grant-types="password,refresh_token"
+                authorities="ROLE_WEB"
+                access-token-validity="100000"
+                refresh-token-validity="100000"
+                scope="read, write" />
+    </oauth:client-details-service>
+
+</beans>
