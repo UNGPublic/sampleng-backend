@@ -8,15 +8,15 @@
     <!-- Properties file -->
     <context:property-placeholder location="classpath:environment.properties" />
 
+    <context:component-scan base-package="ungp.sampleng.backend"/>
+
     <context:annotation-config />
-
-    <bean id="applicationContextProvider" class="ungp.sampleng.backend.util.ApplicationContextProvider" />
-
-    <!-- Spring Security -->
-    <import resource="spring-security.xml"/>
 
     <!-- Spring OAuth2 -->
     <import resource="spring-oauth2.xml"/>
+
+    <!-- Spring Security -->
+    <import resource="spring-security.xml"/>
 
     <!-- Spring MongoDB -->
     <import resource="spring-nosql.xml"/>
