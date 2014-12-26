@@ -14,11 +14,12 @@ import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Service;
 import ungp.sampleng.backend.entity.Infracao;
 import ungp.sampleng.backend.repository.InfracaoRepository;
 
+@Service
 @Path("infracao")
-@Component
 public class InfracaoResource {
 	
 	@Autowired
